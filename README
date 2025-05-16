@@ -1,0 +1,106 @@
+1. Overall
+# 🕵️‍♂️ Job Scraper Web App
+
+A full-stack Python web application built with **Flask** that scrapes job listings from [Alljobspo](https://www.alljobspo.com/), saves them to a **MySQL database**, and displays the latest job listings posted **today**. Built for learning and to demonstrate full-stack capabilities using Python, Flask, HTML, and MySQL.
+
+---
+
+## 📌 Features
+
+- Scrape current day's jobs from Alljobspo
+- Store job data in a MySQL database
+- View saved job listings via a web interface
+- Environment configuration via `.env`
+- Clean and readable UI using basic HTML (expandable with Bootstrap or Tailwind)
+
+---
+
+## 🚀 Tech Stack
+
+- **Backend**: Python, Flask
+- **Database**: MySQL
+- **Frontend**: HTML, Jinja2 (server-side templating)
+- **Environment**: Python `venv`, dotenv
+- **Others**: BeautifulSoup, Requests, Regular Expressions
+
+---
+
+## 🛠️ Setup Instructions
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/job-scraper-web.git
+cd job-scraper-web
+```
+2. Create and Activate Virtual Environment
+
+python -m venv venv
+venv\Scripts\activate  # Windows
+# or
+source venv/bin/activate  # macOS/Linux
+
+3. Install Dependencies
+pip install -r requirements.txt
+
+4. Configure Environment Variables
+Create a .env file in the root directory and add your MySQL credentials:
+
+DB_HOST=localhost
+DB_USER=your_mysql_username
+DB_PASSWORD=your_mysql_password
+DB_NAME=jobsdb
+
+
+5. Set Up the MySQL Database
+Create the database and table using MySQL CLI or any MySQL GUI (e.g., phpMyAdmin, MySQL Workbench):
+
+CREATE DATABASE jobsdb;
+
+USE jobsdb;
+
+CREATE TABLE IF NOT EXISTS jobs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    company VARCHAR(255),
+    location VARCHAR(255),
+    posted_date DATE,
+    job_url TEXT,
+    UNIQUE KEY unique_job (title, company, posted_date)
+);
+
+💻 Usage
+Run the Flask App:
+python run.py
+
+Navigate to: http://127.0.0.1:5000
+
+Available Routes
+- / – Home page with navigation links
+- /scrape – Scrapes jobs posted today and saves them
+- /jobs – Displays all jobs from the database posted today
+
+📂 Project Structure
+job-scraper-web/
+├── app/
+│   ├── __init__.py
+│   ├── scraper.py
+│   ├── routes.py
+│   └── templates/
+│       ├── index.html
+│       └── jobs.html
+├── run.py
+├── .env
+├── requirements.txt
+└── README.md
+
+
+📌 To Do / Improvements
+- Add pagination for job listing UI
+- Filter by location or company
+- Add logging and error handling
+- Improve frontend design with Bootstrap/Tailwind
+- Schedule daily scraping via cron or APScheduler
+
+👨‍💻 Author
+Built with ❤️ by Joe Agoi

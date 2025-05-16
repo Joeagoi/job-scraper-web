@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Listings</title>
+</head>
+<body>
+    <h1>Job Listings</h1>
+    <a href="/">Home</a> | <a href="/scrape">Scrape New Jobs</a>
+    <ul>
+        {% for job in jobs %}
+        <li>
+            <strong>{{ job.title }}</strong> - {{ job.company }}<br>
+            <em>{{ job.location }}</em> | {{ job.posted_date }}<br>
+            <a href="{{ job.job_url }}" target="_blank">View Job</a>
+            <hr>
+        </li>
+        {% else %}
+        <p>No jobs found.</p>
+        {% endfor %}
+    </ul>
+</body>
+</html>
