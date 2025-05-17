@@ -1,11 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Job Scraper</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f8;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      background-color: #1e3a8a;
+      color: white;
+      padding: 2rem;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    main {
+      margin-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    a.button {
+      text-decoration: none;
+      background-color: #2563eb;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    a.button:hover {
+      background-color: #1d4ed8;
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 1rem;
+      text-align: center;
+      color: #777;
+    }
+  </style>
 </head>
 <body>
-  <h1>Welcome to Job Scraper</h1>
-  <div><a href="/scrape">Scrape Today's Jobs</a></div>
-  <div><a href="/jobs">List Active Jobs Posted Today</a></div>
+  <header>
+    <h1>Welcome to Job Scraper</h1>
+    <p>Track and Save Daily Job Postings with Ease</p>
+  </header>
+
+  <main>
+    <a href="/scrape" class="button">Scrape Today's Jobs</a>
+    <a href="/jobs" class="button">List Active Jobs Posted Today</a>
+  </main>
+
+  <footer>
+    &copy; 2025 Job Scraper | Built with ❤️ using Flask and Python
+  </footer>
 </body>
 </html>

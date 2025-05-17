@@ -1,23 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Job Listings</title>
+  <meta charset="UTF-8">
+  <title>Job Listings</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9fafb;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #1e3a8a;
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    nav {
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #2563eb;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .job-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .job-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #1f2937;
+    }
+
+    .job-company {
+      font-size: 1rem;
+      color: #4b5563;
+    }
+
+    .job-meta {
+      font-size: 0.9rem;
+      color: #6b7280;
+      margin-bottom: 0.5rem;
+    }
+
+    .job-link {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      background-color: #2563eb;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+
+    .job-link:hover {
+      background-color: #1d4ed8;
+    }
+
+    .no-jobs {
+      text-align: center;
+      color: #6b7280;
+      font-size: 1.1rem;
+      margin-top: 2rem;
+    }
+  </style>
 </head>
 <body>
+
+  <header>
     <h1>Job Listings</h1>
-    <a href="/">Home</a> | <a href="/scrape">Scrape New Jobs</a>
-    <ul>
-        {% for job in jobs %}
-        <li>
-            <strong>{{ job.title }}</strong> - {{ job.company }}<br>
-            <em>{{ job.location }}</em> | {{ job.posted_date }}<br>
-            <a href="{{ job.job_url }}" target="_blank">View Job</a>
-            <hr>
-        </li>
-        {% else %}
-        <p>No jobs found.</p>
-        {% endfor %}
-    </ul>
+  </header>
+
+  <nav>
+    <a href="/">Home</a>
+    <a href="/scrape">Scrape New Jobs</a>
+
+    <!-- Search form -->
+    <form method="GET" action="{{ url_for('list_jobs') }}" style="display:inline-block; margin-left: 20px;">
+    <input type="text" name="q" placeholder="Search jobs..." value="{{ request.args.get('q', '') }}">
+    <button type="submit">Search</button>
+    </form>
+  </nav>
+
+  <main>
+    {% if jobs %}
+      {% for job in jobs %}
+        <div class="job-card">
+          <div class="job-title">{{ job.title }}</div>
+          <div class="job-company">{{ job.company }}</div>
+          <div class="job-meta">{{ job.location }} | {{ job.posted_date }}</div>
+          <a class="job-link" href="{{ job.job_url }}" target="_blank">View Job</a>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class="no-jobs">No jobs found.</p>
+    {% endif %}
+    
+    {% if total_pages > 1 %}
+  <div style="text-align:center; margin-top: 2rem;">
+    {% if page > 1 %}
+      <a href="{{ url_for('list_jobs', page=page-1) }}" class="job-link" style="margin-right: 10px;">&larr; Previous</a>
+    {% endif %}
+    
+    <span>Page {{ page }} of {{ total_pages }}</span>
+    
+    {% if page < total_pages %}
+      <a href="{{ url_for('list_jobs', page=page+1) }}" class="job-link" style="margin-left: 10px;">Next &rarr;</a>
+    {% endif %}
+  </div>
+{% endif %}
+
+    
+  </main>
+
 </body>
 </html>
